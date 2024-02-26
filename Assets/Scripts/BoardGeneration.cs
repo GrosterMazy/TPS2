@@ -10,17 +10,20 @@ public class BoardGeneration : MonoBehaviour {
 
     public Transform background;
 
+    public Vector3 cellSize;
+
     void Start() {
         Renderer backgroundRenderer = cellPrefab.GetComponent<Renderer>();
         Renderer cellRenderer = cellPrefab.GetComponent<Renderer>();
+        this.cellSize = cellRenderer.bounds.size;
 
         this.background.position = new Vector3(0, -cellRenderer.bounds.size.y, 0);
 
-        float halfX = ((this.sizeX * cellRenderer.bounds.size.x) + ((this.sizeX-1) * this.spacing)) / 2;
-        float halfZ = ((this.sizeZ * cellRenderer.bounds.size.z) + ((this.sizeZ-1) * this.spacing)) / 2;
+        float halfX = ((this.sizeX * this.cellSize.x) + ((this.sizeX-1) * this.spacing)) / 2;
+        float halfZ = ((this.sizeZ * this.cellSize.z) + ((this.sizeZ-1) * this.spacing)) / 2;
 
-        for (float x = -halfX + cellRenderer.bounds.size.x/2; x <= halfX; x += this.spacing + cellRenderer.bounds.size.x)
-            for (float z = -halfZ + cellRenderer.bounds.size.z/2; z <= halfZ; z += this.spacing + cellRenderer.bounds.size.z)
-                Instantiate(this.cellPrefab, new Vector3(x, -cellRenderer.bounds.size.y/2, z), Quaternion.identity, this.transform);
+        for (float x = -halfX + this.cellSize.x/2; x <= halfX; x += this.spacing + this.cellSize.x)
+            for (float z = -halfZ + this.cellSize.z/2; z <= halfZ; z += this.spacing + this.cellSize.z)
+                Instantiate(this.cellPrefab, new Vector3(x, -this.cellSize.y/2, z), Quaternion.identity, this.transform);
     }
 }
