@@ -27,11 +27,14 @@ public class BoardCamera : MonoBehaviour {
 
     void Update() {
         // camera movement
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(1))
             this._basePosition +=
-                - new Vector3(this.transform.right.x, 0, this.transform.right.z)
+                - (new Vector3(this.transform.right.x, 0, this.transform.right.z)).normalized
                     * this.moveSpeed * Time.deltaTime * Input.GetAxis("Mouse X")
-                - new Vector3(this.transform.forward.x, 0, this.transform.forward.z)
+                - Vector3.Cross(
+                        (new Vector3(this.transform.right.x, 0, this.transform.right.z)).normalized,
+                        new Vector3(0, 1, 0)
+                    )
                     * this.moveSpeed * Time.deltaTime * Input.GetAxis("Mouse Y");
         // camera rotation
         else if (Input.GetMouseButton(2)) {

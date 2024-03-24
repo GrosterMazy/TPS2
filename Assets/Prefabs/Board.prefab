@@ -48,11 +48,16 @@ MonoBehaviour:
   sizeX: 10
   sizeZ: 10
   spacing: 0.5
+  resourceCellsOnMap: 0
+  infiniteResource: 1
+  resourceAmountPerCell: 0
   cellPrefab: {fileID: 1129955440556411452, guid: 65242a5e062344742a367edd79938032,
     type: 3}
   invalidVector3: {x: -1, y: -1, z: -1}
+  invalidVector2: {x: 0, y: 0}
   background: {fileID: 248959944889302335}
   cellSize: {x: 0, y: 0, z: 0}
+  resourceColor: {fileID: 2100000, guid: 7d0dfbe7d111af54cbc97042f16f6640, type: 2}
 --- !u!114 &5523282341679755718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,6 +71,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   board: {fileID: 248959943997068888}
+  boardCamera: {fileID: 0}
+  turnText: {fileID: 0}
+  teams: []
   pieces: []
 --- !u!1 &248959944889302332
 GameObject:
