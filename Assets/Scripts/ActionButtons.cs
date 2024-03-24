@@ -14,8 +14,10 @@ public class ActionButtons : MonoBehaviour {
     void Update() {
         if (this.mouseSelection.selected != null) {
             PieceModel pieceModel = this.mouseSelection.selected.GetComponent<PieceModel>();
-            if (pieceModel != null && pieceManager.TurnOf(pieceModel.parent))
+            if (pieceModel != null && pieceManager.TurnOf(pieceModel.parent)
+                    && pieceModel.parent.gameObject.GetComponent<ShootingPiece>())
                 this.shootButton.SetActive(true);
+                
             else this.shootButton.SetActive(false);
         }
         else this.shootButton.SetActive(false);
@@ -23,7 +25,8 @@ public class ActionButtons : MonoBehaviour {
 
     public void ShootButton() {
         this.boardCamera.SetActive(false);
-        GameObject pieceCamera = this.mouseSelection.selected.GetComponent<PieceModel>().parent.localCameraLink;
+        GameObject pieceCamera = this.mouseSelection.selected.GetComponent<PieceModel>()
+            .parent.gameObject.GetComponent<ShootingPiece>().localCameraLink;
         pieceCamera.SetActive(true);
         pieceCamera.GetComponent<PieceCamera>().Init();
         this.pieceMovement.UndoColoring();

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PieceModel : MonoBehaviour {
-    public Piece parent;
+    public DicePiece parent;
 
     public RaycastHit[] hits;
 

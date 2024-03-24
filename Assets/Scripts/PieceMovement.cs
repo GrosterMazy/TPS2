@@ -25,7 +25,7 @@ public class PieceMovement : MonoBehaviour {
         else this.UndoColoring();
     }
     public void ColorMoves() {
-        Piece parent = this.mouseSelection.selected.GetComponent<PieceModel>().parent;
+        DicePiece parent = this.mouseSelection.selected.GetComponent<PieceModel>().parent;
         foreach (Vector2 move in parent.Moves()) {
             // move in bounds of board
             if (parent.boardX+move.x >= 0 && parent.boardX+move.x < this.board.sizeX
@@ -59,7 +59,7 @@ public class PieceMovement : MonoBehaviour {
     }
 
     public void MakeMove(Vector3 destinationCell) {
-        Piece parent = this.mouseSelection.selected.GetComponent<PieceModel>().parent;
+        DicePiece parent = this.mouseSelection.selected.GetComponent<PieceModel>().parent;
         parent.movesRemain--;
 
         int newX = (int)this.board.GetCoords(destinationCell).x;
