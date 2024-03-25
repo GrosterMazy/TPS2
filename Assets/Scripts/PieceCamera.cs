@@ -48,6 +48,7 @@ public class PieceCamera : MonoBehaviour {
     public void Init() {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        this.piece.GetComponent<DicePiece>().currentCamera = this.cameraLink.transform;
     }
 
     public void Deinit() {
@@ -55,5 +56,6 @@ public class PieceCamera : MonoBehaviour {
         Cursor.visible = true;
         this.piece.localEulerAngles = new Vector3(this.piece.localEulerAngles.x, 0, this.piece.localEulerAngles.z);
         this.mouseHighlight.UndoColoring();
+        this.piece.GetComponent<DicePiece>().currentCamera = this.boardCamera.transform;
     }
 }

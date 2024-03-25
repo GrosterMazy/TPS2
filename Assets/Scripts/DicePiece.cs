@@ -1,9 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class DicePiece : Piece {
     public MeshRenderer icon;
+    public TextMeshProUGUI resouceText;
+
+    public Transform canvas;
+    public Transform currentCamera;
 
     public int moves;
     public int movesRemain;
@@ -13,9 +19,14 @@ public class DicePiece : Piece {
 
     public int power;
 
+    private RectTransform _resourceTextRectTransform;
+
     protected override void Start() {
         base.Start();
         this.movesRemain = this.moves;
+        // set text
+        this.resouceText.text = this.resourceAmount.ToString();
+        this.canvas.rotation = Quaternion.LookRotation(this.canvas.position - this.currentCamera.position);
     }
 
     protected virtual void Update() {
@@ -26,6 +37,9 @@ public class DicePiece : Piece {
                 this.power = i+1;
                 break;
             }
+        // set text
+        this.resouceText.text = this.resourceAmount.ToString();
+        this.canvas.rotation = Quaternion.LookRotation(this.canvas.position - this.currentCamera.position);
     }
     
     public virtual List<Vector2> Moves() {

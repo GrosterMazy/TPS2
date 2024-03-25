@@ -19,8 +19,11 @@ public class PieceManager : MonoBehaviour {
         foreach (Piece piece in this.pieces) {
             // set team color
             DicePiece dicePiece = piece.gameObject.GetComponent<DicePiece>();
-            if (dicePiece != null)
+            if (dicePiece != null) {
                 dicePiece.icon.material.color = this.teams[piece.team].material.color;
+                dicePiece.resouceText.color = this.teams[piece.team].material.color;
+            }
+                
             
             // set boardCamera link
             ShootingPiece shootingPiece = piece.gameObject.GetComponent<ShootingPiece>();
@@ -44,12 +47,14 @@ public class PieceManager : MonoBehaviour {
     }
 
     public void NextTurn() {
-        // restore piece moves
+        // restore piece moves and actions
         foreach (Piece piece in this.pieces)
             if (this.TurnOf(piece)) {
                 DicePiece dicePiece = piece.gameObject.GetComponent<DicePiece>();
-                if (dicePiece != null)
+                if (dicePiece != null) {
                     dicePiece.movesRemain = dicePiece.moves;
+                    dicePiece.actionsRemain = dicePiece.actions;
+                }
             }
         
         // add turn count
