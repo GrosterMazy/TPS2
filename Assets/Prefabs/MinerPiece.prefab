@@ -189,7 +189,7 @@ MonoBehaviour:
   model: {fileID: 8056128556760323340}
   boardX: 9
   boardZ: 9
-  actions: 2
+  actions: 1
   actionsRemain: 0
   team: 0
   height: 0
@@ -197,7 +197,7 @@ MonoBehaviour:
   resouceText: {fileID: 9158318202151484871}
   canvas: {fileID: 9158318202906541625}
   currentCamera: {fileID: 0}
-  moves: 100
+  moves: 1
   movesRemain: 0
   maxResourceAmount: 1
   resourceAmount: 0

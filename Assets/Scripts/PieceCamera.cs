@@ -8,6 +8,7 @@ public class PieceCamera : MonoBehaviour {
     public Transform pieceIcon;
     public Camera cameraLink;
     public MouseHighlight mouseHighlight;
+    public PieceManager pieceManager;
 
     public float rotationSpeed;
     public float maxVerticalAngle;
@@ -22,11 +23,8 @@ public class PieceCamera : MonoBehaviour {
         this.pieceIcon.localEulerAngles = this.transform.localEulerAngles;
 
         // Exit piece
-        if (Input.GetKeyDown(KeyCode.Escape)) {
-            this.Deinit();
-            this.gameObject.SetActive(false);
-            this.boardCamera.SetActive(true);
-        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+            this.ReturnToBoardCamera();
     }
 
     private void UpdateRotation() {
@@ -48,14 +46,27 @@ public class PieceCamera : MonoBehaviour {
     public void Init() {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        this.piece.GetComponent<DicePiece>().currentCamera = this.cameraLink.transform;
+        foreach (Piece piece in this.pieceManager.pieces)
+            piece.GetComponent<DicePiece>().currentCamera = this.cameraLink.transform;
     }
 
     public void Deinit() {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        DicePiece dicePiece = this.piece.GetComponent<DicePiece>();
         this.piece.localEulerAngles = new Vector3(this.piece.localEulerAngles.x, 0, this.piece.localEulerAngles.z);
+        piece.RotateAround(
+            piece.position,
+            Vector3.up,
+            90*dicePiece.yRotation
+        );
         this.mouseHighlight.UndoColoring();
-        this.piece.GetComponent<DicePiece>().currentCamera = this.boardCamera.transform;
+        foreach (Piece piece in this.pieceManager.pieces)
+            piece.GetComponent<DicePiece>().currentCamera = this.boardCamera.transform;
+    }
+    public void ReturnToBoardCamera() {
+        this.Deinit();
+        this.gameObject.SetActive(false);
+        this.boardCamera.SetActive(true);
     }
 }

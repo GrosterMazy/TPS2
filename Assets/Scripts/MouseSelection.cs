@@ -12,6 +12,8 @@ public class MouseSelection : MonoBehaviour
     public PieceMovement pieceMovement;
     public BoardGeneration board;
     public PieceManager pieceManager;
+    public ActionButtons actionButtons;
+    public PieceSpawn pieceSpawn;
 
     public Transform highlighted;
     public Transform selected;
@@ -39,15 +41,21 @@ public class MouseSelection : MonoBehaviour
                 && !EventSystem.current.IsPointerOverGameObject()) {
             if (this.selected != null) {
                 PieceModel pieceModel = this.selected.GetComponent<PieceModel>();
-                if (pieceModel != null && pieceManager.TurnOf(pieceModel.parent)
-                        && pieceModel.parent.movesRemain > 0) {
-                    this.pieceMovement.UndoColoring();
-                    this._highlightedOldColor = hit.transform.GetComponent<MeshRenderer>().material.color;
-                    this.pieceMovement.ColorMoves();
-                }
-                else this._highlightedOldColor = hit.transform.GetComponent<MeshRenderer>().material.color;
+                if (pieceModel != null && pieceManager.TurnOf(pieceModel.parent)) {
+                    if (this.actionButtons.choosingPlaceToSpawn) {
+                        this.pieceSpawn.UndoColoring();
+                        this._highlightedOldColor = hit.transform.GetComponent<MeshRenderer>().material.color;
+                        this.pieceSpawn.ColorPlaces();
+                    } else if (pieceModel.parent.movesRemain > 0) {
+                        this.pieceMovement.UndoColoring();
+                        this._highlightedOldColor = hit.transform.GetComponent<MeshRenderer>().material.color;
+                        this.pieceMovement.ColorMoves();
+                    } else this._highlightedOldColor = hit.transform.GetComponent<MeshRenderer>().material.color;
+                    
+                } else this._highlightedOldColor = hit.transform.GetComponent<MeshRenderer>().material.color;
             }
             else this._highlightedOldColor = hit.transform.GetComponent<MeshRenderer>().material.color;
+
             hit.transform.GetComponent<MeshRenderer>().material.color = this.highlightColor.color;
             this.highlighted = hit.transform;
         }
@@ -60,19 +68,34 @@ public class MouseSelection : MonoBehaviour
                     // return old color to old selection
                     this.selected.GetComponent<MeshRenderer>().material.color = this._selectedOldColor;
 
-                    if (this.selected.GetComponent<PieceModel>() != null) {
-
-                        // if we click on potential move: make it
-                        foreach (CellAndColor cellAndColor in this.pieceMovement.moveHighlighted) {
-                            Vector3 cellCoords = this.board.GetPlace((int)cellAndColor.position.x, (int)cellAndColor.position.y, 0);
-                            if (Math.Round(cellCoords.x, 4) == Math.Round(hit.transform.position.x, 4)
-                                    && Math.Round(cellCoords.z, 4) == Math.Round(hit.transform.position.z, 4)) {
-                                this.pieceMovement.MakeMove(hit.transform.position);
-                                break;
+                    PieceModel pieceModel = this.selected.GetComponent<PieceModel>();
+                    if (pieceModel != null) {
+                        if (this.actionButtons.choosingPlaceToSpawn) {
+                            // if we click on potential place to spawn: spawn piece here
+                            foreach (CellAndColor cellAndColor in this.pieceSpawn.spawnHighlighted) {
+                                Vector3 cellCoords = this.board.GetPlace((int)cellAndColor.position.x, (int)cellAndColor.position.y, 0);
+                                if (Math.Round(cellCoords.x, 4) == Math.Round(hit.transform.position.x, 4)
+                                        && Math.Round(cellCoords.z, 4) == Math.Round(hit.transform.position.z, 4)) {
+                                    this.pieceSpawn.SpawnPiece(hit.transform.position);
+                                    break;
+                                }
                             }
+                            // undo cells coloring if old selection was piece
+                            this.pieceSpawn.UndoColoring();
+                            
+                        } else {
+                            // if we click on potential move: make it
+                            foreach (CellAndColor cellAndColor in this.pieceMovement.moveHighlighted) {
+                                Vector3 cellCoords = this.board.GetPlace((int)cellAndColor.position.x, (int)cellAndColor.position.y, 0);
+                                if (Math.Round(cellCoords.x, 4) == Math.Round(hit.transform.position.x, 4)
+                                        && Math.Round(cellCoords.z, 4) == Math.Round(hit.transform.position.z, 4)) {
+                                    this.pieceMovement.MakeMove(hit.transform.position);
+                                    break;
+                                }
+                            }
+                            // undo cells coloring if old selection was piece
+                            this.pieceMovement.UndoColoring();
                         }
-                        // undo cells coloring if old selection was piece
-                        this.pieceMovement.UndoColoring();
                     }       
                 }
 
@@ -88,11 +111,13 @@ public class MouseSelection : MonoBehaviour
             else if (this.selected != null) {
                 this.selected.GetComponent<MeshRenderer>().material.color = this._selectedOldColor;
                 this.selected = null;
+                this.actionButtons.choosingPlaceToSpawn = false;
             }
         }
         if (Input.GetKeyDown(KeyCode.Escape) && this.selected != null) {
             this.selected.GetComponent<MeshRenderer>().material.color = this._selectedOldColor;
             this.selected = null;
+            this.actionButtons.choosingPlaceToSpawn = false;
         }
     }
 

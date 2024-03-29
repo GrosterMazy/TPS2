@@ -5,6 +5,8 @@ using UnityEngine;
 public class Piece : MonoBehaviour {
     public GameObject model;
 
+    public PieceManager pieceManager;
+
     public int boardX;
     public int boardZ;
 
@@ -18,5 +20,9 @@ public class Piece : MonoBehaviour {
     protected virtual void Start() {
         this.height = this.model.GetComponent<Renderer>().bounds.size.y;
         this.actionsRemain = this.actions;
+    }
+
+    protected virtual void OnDestroy() {
+        this.pieceManager.pieces.Remove(this);
     }
 }

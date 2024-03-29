@@ -18,17 +18,17 @@ public class BoardCamera : MonoBehaviour {
     public Camera cameraLink;
 
     private float _newRotX;
-    private float _currentZoom = 0;
-    private Vector3 _basePosition;
+    public float currentZoom = 0;
+    public Vector3 basePosition;
 
     void Start() {
-        this._basePosition = this.transform.localPosition;
+        this.basePosition = this.transform.localPosition;
     }
 
     void Update() {
         // camera movement
         if (Input.GetMouseButton(1))
-            this._basePosition +=
+            this.basePosition +=
                 - (new Vector3(this.transform.right.x, 0, this.transform.right.z)).normalized
                     * this.moveSpeed * Time.deltaTime * Input.GetAxis("Mouse X")
                 - Vector3.Cross(
@@ -51,12 +51,12 @@ public class BoardCamera : MonoBehaviour {
                 );
         }
         // camera zoom
-        if (this.minZoom <= this._currentZoom && this._currentZoom <= this.maxZoom)
-            this._currentZoom -= this.zoomSpeed * Time.deltaTime * Input.GetAxis("Mouse ScrollWheel");
-        else this._currentZoom = Mathf.Clamp(this._currentZoom, this.minZoom, this.maxZoom);
+        if (this.minZoom <= this.currentZoom && this.currentZoom <= this.maxZoom)
+            this.currentZoom -= this.zoomSpeed * Time.deltaTime * Input.GetAxis("Mouse ScrollWheel");
+        else this.currentZoom = Mathf.Clamp(this.currentZoom, this.minZoom, this.maxZoom);
 
         // applying
-        this.transform.localPosition = this._basePosition - this.transform.forward * this._currentZoom;
+        this.transform.localPosition = this.basePosition - this.transform.forward * this.currentZoom;
     }
 
 }

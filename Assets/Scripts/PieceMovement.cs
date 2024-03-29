@@ -7,6 +7,7 @@ public class PieceMovement : MonoBehaviour {
     public Material moveHighlightColor;
     public MouseSelection mouseSelection;
     public PieceManager pieceManager;
+    public ActionButtons actionButtons;
 
     public Stack<CellAndColor> moveHighlighted;
 
@@ -15,7 +16,7 @@ public class PieceMovement : MonoBehaviour {
     }
 
     void Update() {
-        if (this.mouseSelection.selected != null) {
+        if (this.mouseSelection.selected != null && !this.actionButtons.choosingPlaceToSpawn) {
             PieceModel pieceModel = this.mouseSelection.selected.GetComponent<PieceModel>();
             if (pieceModel != null && pieceManager.TurnOf(pieceModel.parent)
                     && pieceModel.parent.movesRemain > 0)

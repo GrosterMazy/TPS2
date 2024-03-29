@@ -8,7 +8,7 @@ public class PieceShoot : MonoBehaviour {
     public Transform spawnPoint;
     public Transform aim;
 
-    void Update() {
+    protected virtual void Update() {
         if (Input.GetMouseButtonDown(0)
                 && this.piece.resourceAmount > 0
                 && this.piece.actionsRemain > 0) {

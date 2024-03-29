@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class DicePiece : Piece {
     public MeshRenderer icon;
-    public TextMeshProUGUI resouceText;
 
-    public Transform canvas;
+    public PieceDataCanvas pieceDataCanvas;
+
     public Transform currentCamera;
 
     public int moves;
@@ -19,14 +18,15 @@ public class DicePiece : Piece {
 
     public int power;
 
+    public int yRotation; // number of steps by 90. can be 0, 1, 2 or 3
+
+    public int shieldPower;
+
     private RectTransform _resourceTextRectTransform;
 
     protected override void Start() {
         base.Start();
         this.movesRemain = this.moves;
-        // set text
-        this.resouceText.text = this.resourceAmount.ToString();
-        this.canvas.rotation = Quaternion.LookRotation(this.canvas.position - this.currentCamera.position);
     }
 
     protected virtual void Update() {
@@ -38,8 +38,11 @@ public class DicePiece : Piece {
                 break;
             }
         // set text
-        this.resouceText.text = this.resourceAmount.ToString();
-        this.canvas.rotation = Quaternion.LookRotation(this.canvas.position - this.currentCamera.position);
+        this.pieceDataCanvas.resouceText.text = this.resourceAmount.ToString();
+        this.pieceDataCanvas.shieldText.text = this.shieldPower.ToString();
+        this.pieceDataCanvas.transform.rotation = Quaternion.LookRotation(
+            this.pieceDataCanvas.transform.position - this.currentCamera.position
+        );
     }
     
     public virtual List<Vector2> Moves() {
