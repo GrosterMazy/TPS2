@@ -10,7 +10,7 @@ public class PistolBullet : PoweredBullet {
             return;
         }
 
-        if (this.power > pieceModel.parent.shieldPower + 2)
+        if (this.power > pieceModel.parent.shieldPower + 2 || pieceModel.parent.shieldPower == 0)
             Destroy(pieceModel.parent.gameObject);
         this.DestroyBullet();
     }

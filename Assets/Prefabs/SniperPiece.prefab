@@ -50,11 +50,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 2952256361267851031}
   pieceManager: {fileID: 0}
-  boardX: 9
+  boardX: 10
   boardZ: 9
   actions: 1
   actionsRemain: 0
-  team: 0
+  team: 1
   height: 0
   icon: {fileID: 1979336068375692057}
   pieceDataCanvas: {fileID: 1311121107927001669}
@@ -66,7 +66,9 @@ MonoBehaviour:
   power: 0
   yRotation: 0
   shieldPower: 0
+  deathSound: {fileID: 8300000, guid: ee2f4d83a41743f4581e9ec76d83ed2d, type: 3}
   localCameraLink: {fileID: 1384996739127874346}
+  shootSound: {fileID: 8300000, guid: 5fd70ff23cef6e7498a7d98650e595c7, type: 3}
 --- !u!65 &6372821908884742010
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -455,6 +457,11 @@ PrefabInstance:
       propertyPath: pieceIcon
       value: 
       objectReference: {fileID: 807040943738402934}
+    - target: {fileID: 5752610005730192534, guid: b4594a22d4d3f6c4d9cf74e6c1c962df,
+        type: 3}
+      propertyPath: dicePiece
+      value: 
+      objectReference: {fileID: 1329767198138569176}
     - target: {fileID: 6490587304034976017, guid: b4594a22d4d3f6c4d9cf74e6c1c962df,
         type: 3}
       propertyPath: m_RootOrder

@@ -9,7 +9,11 @@ public class PieceSpawn : MonoBehaviour {
     public MouseSelection mouseSelection;
     public ActionButtons actionButtons;
 
+    public GameObject wallPrefab;
     public GameObject minerPiecePrefab;
+    public GameObject defenderPiecePrefab;
+    public GameObject sniperPiecePrefab;
+    public GameObject armorRemoverPrefab;
 
     public Stack<CellAndColor> spawnHighlighted;
 
@@ -69,22 +73,22 @@ public class PieceSpawn : MonoBehaviour {
         GameObject piece;
         switch (parent.power) {
             case 1:
-                piece = Instantiate(this.minerPiecePrefab);
+                piece = Instantiate(this.wallPrefab);
                 break;
             case 2:
                 piece = Instantiate(this.minerPiecePrefab);
                 break;
             case 3:
-                piece = Instantiate(this.minerPiecePrefab);
+                piece = Instantiate(this.defenderPiecePrefab);
                 break;
             case 4:
-                piece = Instantiate(this.minerPiecePrefab);
+                piece = Instantiate(this.sniperPiecePrefab);  // TODO: choose to spawn Sniper or Grenader
                 break;
             case 5:
-                piece = Instantiate(this.minerPiecePrefab);
+                piece = Instantiate(this.armorRemoverPrefab);
                 break;
             case 6:
-                piece = Instantiate(this.minerPiecePrefab);
+                piece = Instantiate(this.wallPrefab); // TODO: spawn Mover
                 break;
             default:
                 piece = null;

@@ -22,6 +22,9 @@ public class DicePiece : Piece {
 
     public int shieldPower;
 
+    public AudioClip deathSound;
+
+
     private RectTransform _resourceTextRectTransform;
 
     protected override void Start() {
@@ -52,5 +55,10 @@ public class DicePiece : Piece {
         list.Add(new Vector2(0, -1));
         list.Add(new Vector2(0, 1));
         return list;
+    }
+
+    protected override void OnDestroy() {
+        base.OnDestroy();
+        this.pieceManager.PlaySound(this.deathSound);
     }
 }

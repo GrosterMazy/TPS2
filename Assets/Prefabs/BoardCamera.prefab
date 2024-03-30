@@ -882,6 +882,8 @@ MonoBehaviour:
   actionButtons: {fileID: 3187227077126233584}
   minerPiecePrefab: {fileID: 6143423919036672960, guid: 31f09285d94db7b418296f8bcdc856e2,
     type: 3}
+  defenderPiecePrefab: {fileID: 0}
+  sniperPiecePrefab: {fileID: 0}
 --- !u!1 &4540520663145684110
 GameObject:
   m_ObjectHideFlags: 0

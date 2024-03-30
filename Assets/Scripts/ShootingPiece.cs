@@ -4,4 +4,5 @@ using UnityEngine;
 
 public class ShootingPiece : DicePiece {
     public GameObject localCameraLink;
+    public AudioClip shootSound;
 }

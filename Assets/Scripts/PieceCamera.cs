@@ -46,8 +46,11 @@ public class PieceCamera : MonoBehaviour {
     public void Init() {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        foreach (Piece piece in this.pieceManager.pieces)
-            piece.GetComponent<DicePiece>().currentCamera = this.cameraLink.transform;
+        foreach (Piece piece in this.pieceManager.pieces) {
+            DicePiece dicePiece = piece.GetComponent<DicePiece>();
+            if (dicePiece != null)
+                dicePiece.currentCamera = this.cameraLink.transform;
+        }
     }
 
     public void Deinit() {
@@ -61,8 +64,11 @@ public class PieceCamera : MonoBehaviour {
             90*dicePiece.yRotation
         );
         this.mouseHighlight.UndoColoring();
-        foreach (Piece piece in this.pieceManager.pieces)
-            piece.GetComponent<DicePiece>().currentCamera = this.boardCamera.transform;
+        foreach (Piece piece in this.pieceManager.pieces) {
+            DicePiece dicePieceLoc = piece.GetComponent<DicePiece>();
+            if (dicePieceLoc != null)
+                dicePieceLoc.currentCamera = this.boardCamera.transform;
+        }
     }
     public void ReturnToBoardCamera() {
         this.Deinit();

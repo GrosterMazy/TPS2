@@ -13,8 +13,10 @@ public class PoweredPieceShoot : PieceShoot {
                 this.spawnPoint.position+this.spawnPoint.forward,
                 this.spawnPoint.rotation
             );
+            this.piece.pieceManager.PlaySound(this.piece.shootSound);
             PoweredBullet poweredBullet = projectile.GetComponent<PoweredBullet>();
             poweredBullet.power = this.piece.power;
+            
 
             this.piece.resourceAmount--;
             this.piece.movesRemain = 0;

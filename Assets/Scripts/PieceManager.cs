@@ -19,6 +19,10 @@ public class PieceManager : MonoBehaviour {
     public GameObject endGameUI;
     public TextMeshProUGUI endGameText;
 
+    public AudioSource audioSource;
+    public AudioSource backgroundMusicSource;
+    public AudioClip backgroundMusic;
+
     private bool _sandboxMode;
     private int _turnCount = 0;
     private BoardCamera _boardCameraComponent;
@@ -44,6 +48,10 @@ public class PieceManager : MonoBehaviour {
         foreach (Piece piece in this.pieces) {
             this.InitializePiece(piece);
         }
+
+        this.backgroundMusicSource.clip = this.backgroundMusic;
+        this.backgroundMusicSource.Play();
+
     }
 
     void Update() {
@@ -111,7 +119,9 @@ public class PieceManager : MonoBehaviour {
         DicePiece dicePiece = piece.gameObject.GetComponent<DicePiece>();
         if (dicePiece != null) {
             // set team color
-            dicePiece.icon.material.color = this.teams[piece.team].material.color;
+            foreach (Material material in dicePiece.icon.materials) {
+                material.color = this.teams[piece.team].material.color;
+            }
             dicePiece.pieceDataCanvas.resouceText.color = this.teams[piece.team].material.color;
             dicePiece.pieceDataCanvas.shieldText.color = this.teams[piece.team].material.color;
             dicePiece.pieceDataCanvas.shieldImage.color = this.teams[piece.team].material.color;
@@ -164,5 +174,10 @@ public class PieceManager : MonoBehaviour {
         // set turn text
         this.turnText.text = this.teams[this._turnCount % this.teams.Count].turnText;
         this.turnText.color = this.teams[this._turnCount % this.teams.Count].material.color;
+    }
+    
+    public void PlaySound(AudioClip audioClip) {
+        this.audioSource.clip = audioClip;
+        this.audioSource.Play();
     }
 }

@@ -6,11 +6,14 @@ using UnityEngine.EventSystems;
 public class MouseHighlight : MonoBehaviour {
 
     public Camera cameraLink;
+    public DicePiece dicePiece;
     public Material highlightColor;
 
     public Transform highlighted;
 
     private Color _highlightedOldColor;
+
+    public float highlightDistance = 100;
 
     void Update() {
         RaycastHit hit;
@@ -23,7 +26,8 @@ public class MouseHighlight : MonoBehaviour {
         }
 
         // highlight
-        if (hasHit && hit.transform.CompareTag("Selectable") && !EventSystem.current.IsPointerOverGameObject()) {
+        if (hasHit && hit.transform.CompareTag("Selectable") && !EventSystem.current.IsPointerOverGameObject()
+                && Vector3.Distance(dicePiece.transform.position, hit.transform.position) <= this.highlightDistance) {
             this._highlightedOldColor = hit.transform.GetComponent<MeshRenderer>().material.color;
             hit.transform.GetComponent<MeshRenderer>().material.color = this.highlightColor.color;
             this.highlighted = hit.transform;

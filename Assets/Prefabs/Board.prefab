@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 248959943997068891}
   - component: {fileID: 248959943997068888}
   - component: {fileID: 5523282341679755718}
+  - component: {fileID: 8742195331823943277}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 248959943997068889}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5.243, y: 5.243, z: 5.243}
   m_Children:
   - {fileID: 248959944889302335}
   m_Father: {fileID: 0}
@@ -45,19 +46,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9c5fe3aa71cf634b90d31aa887d7987, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sizeX: 10
-  sizeZ: 10
+  sizeX: 20
+  sizeZ: 20
   spacing: 0.5
-  resourceCellsOnMap: 0
+  resourceCellsOnMap: 8
   infiniteResource: 1
   resourceAmountPerCell: 0
   cellPrefab: {fileID: 1129955440556411452, guid: 65242a5e062344742a367edd79938032,
     type: 3}
   invalidVector3: {x: -1, y: -1, z: -1}
-  invalidVector2: {x: 0, y: 0}
+  invalidVector2: {x: -1, y: -1}
   background: {fileID: 248959944889302335}
-  cellSize: {x: 0, y: 0, z: 0}
+  cellSize: {x: -1, y: -1, z: -1}
   resourceColor: {fileID: 2100000, guid: 7d0dfbe7d111af54cbc97042f16f6640, type: 2}
+  piecesOnMap: 0
 --- !u!114 &5523282341679755718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,11 +72,137 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fcea487637f18547a3f97ec98c9eff9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drawText: 
   board: {fileID: 248959943997068888}
   boardCamera: {fileID: 0}
+  mouseSelection: {fileID: 0}
   turnText: {fileID: 0}
-  teams: []
-  pieces: []
+  winSound: {fileID: 8300000, guid: 55218a610c47a654f9be6cf16b65ea33, type: 3}
+  teams:
+  - material: {fileID: 2100000, guid: 4d7f463a64258c946bc93e2d8e11e20c, type: 2}
+    turnText: Blue's turn
+    winText: Blue won
+    boardCameraBasePosition: {x: 0, y: 0, z: 0}
+    boardCameraZoom: 0
+    boardCameraRotation: {x: 0, y: 0, z: 0, w: 0}
+    teamPieceYRotation: 2
+    teamKings: []
+  - material: {fileID: 2100000, guid: b381a0379bba7ec4a8afebc0f32ad531, type: 2}
+    turnText: Red's turn
+    winText: Red won
+    boardCameraBasePosition: {x: 0, y: 0, z: 0}
+    boardCameraZoom: 0
+    boardCameraRotation: {x: 0, y: 0, z: 0, w: 0}
+    teamPieceYRotation: 0
+    teamKings: []
+  pieces:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  inGameUI: {fileID: 0}
+  endGameUI: {fileID: 0}
+  endGameText: {fileID: 0}
+  audioSource: {fileID: 8742195331823943277}
+  backgroundMusicSource: {fileID: 0}
+  backgroundMusic: {fileID: 8300000, guid: 6d1fd205da62de946b67a5926a712ce5, type: 3}
+--- !u!82 &8742195331823943277
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 248959943997068889}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &248959944889302332
 GameObject:
   m_ObjectHideFlags: 0

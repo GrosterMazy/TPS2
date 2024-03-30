@@ -7,6 +7,8 @@ public class BoardGeneration : MonoBehaviour {
     public int sizeZ;
     public float spacing;
     public int resourceCellsOnMap;// can be not even only if sizeX and sizeZ not even
+    public int wallsOnMap;// can be not even only if sizeX and sizeZ not even
+    public GameObject wallPrefab;
     public bool infiniteResource;
     public int resourceAmountPerCell;
     public GameObject cellPrefab;
@@ -15,6 +17,7 @@ public class BoardGeneration : MonoBehaviour {
     public Vector2 invalidVector2;
 
     public Transform background;
+    public PieceManager pieceManager;
 
     public Vector3 cellSize;
 
@@ -29,6 +32,7 @@ public class BoardGeneration : MonoBehaviour {
 
         this.GenerateCells();
         this.PlaceResource();
+        this.PlaceWalls();
     }
 
     private void GenerateCells() {
@@ -69,17 +73,19 @@ public class BoardGeneration : MonoBehaviour {
     private void PlaceResource() {
         int placed = 0;
         
+        int x, z;
+        GameObject cell, cell2;
         while (placed < (int)(this.resourceCellsOnMap/2)*2) {
-            int x = Random.Range(0, this.cells.Count);
-            int z = Random.Range(0, ((int)(this.cells[0].Count/2))+1);
+            x = Random.Range(0, this.cells.Count);
+            z = Random.Range(0, ((int)(this.cells[0].Count/2))+1);
             
             if (this.sizeX % 2 != 0 && this.sizeZ % 2 != 0
                 && x == ((int)(this.cells.Count/2))
                 && z == ((int)(this.cells[0].Count/2)))
                 continue;
             
-            GameObject cell = this.cells[x][z];
-            GameObject cell2 = this.cells[this.cells.Count-1-x][this.cells[0].Count-1-z];
+            cell = this.cells[x][z];
+            cell2 = this.cells[this.cells.Count-1-x][this.cells[0].Count-1-z];
 
             if (cell.GetComponent<WithResource>() == null) {
                 WithResource withResource = cell.AddComponent<WithResource>();
@@ -114,6 +120,65 @@ public class BoardGeneration : MonoBehaviour {
             // color cell
             this.cells[((int)(this.cells.Count/2))][((int)(this.cells[0].Count/2))]
                 .GetComponent<MeshRenderer>().material.color = this.resourceColor.color;
+        }
+    }
+
+    private void PlaceWalls() {
+        int placed = 0;
+        
+        int x, z, x2, z2;
+        while (placed < (int)(this.wallsOnMap/2)*2) {
+            x = Random.Range(0, this.cells.Count);
+            z = Random.Range(0, ((int)(this.cells[0].Count/2))+1);
+            
+            if (this.sizeX % 2 != 0 && this.sizeZ % 2 != 0
+                && x == ((int)(this.cells.Count/2))
+                && z == ((int)(this.cells[0].Count/2)))
+                continue;
+            
+            x2 = this.cells.Count-1-x;
+            z2 = this.cells[0].Count-1-z;
+
+            bool found = false;
+            foreach (Piece piece in this.pieceManager.pieces)
+                if (piece.boardX == x && piece.boardZ == z) {
+                    found = true;
+                    break;
+                }
+            
+            if (!found && this.cells[x][z].GetComponent<WithResource>() == null) {
+                GameObject wall = Instantiate(this.wallPrefab);
+                Piece pieceComponent = wall.GetComponent<Piece>();
+                pieceComponent.boardX = x;
+                pieceComponent.boardZ = z;
+
+                this.pieceManager.InitializePiece(pieceComponent);
+                this.pieceManager.pieces.Add(pieceComponent);
+
+                placed++;
+
+                GameObject wall2 = Instantiate(this.wallPrefab);
+                Piece pieceComponent2 = wall2.GetComponent<Piece>();
+                pieceComponent2.boardX = x2;
+                pieceComponent2.boardZ = z2;
+
+                this.pieceManager.InitializePiece(pieceComponent2);
+                this.pieceManager.pieces.Add(pieceComponent2);
+
+                placed++;
+            }
+        }
+
+        if (this.wallsOnMap % 2 != 0
+                && this.sizeX % 2 != 0
+                && this.sizeZ % 2 != 0) {
+            GameObject wall3 = Instantiate(this.wallPrefab);
+            Piece pieceComponent3 = wall3.GetComponent<Piece>();
+            pieceComponent3.boardX = ((int)(this.cells.Count/2));
+            pieceComponent3.boardZ = ((int)(this.cells[0].Count/2));
+
+            this.pieceManager.InitializePiece(pieceComponent3);
+            this.pieceManager.pieces.Add(pieceComponent3);
         }
     }
 

@@ -66,7 +66,9 @@ MonoBehaviour:
   power: 0
   yRotation: 0
   shieldPower: 0
+  deathSound: {fileID: 8300000, guid: ee2f4d83a41743f4581e9ec76d83ed2d, type: 3}
   localCameraLink: {fileID: 7145544756885340352}
+  shootSound: {fileID: 8300000, guid: 5fd70ff23cef6e7498a7d98650e595c7, type: 3}
 --- !u!65 &6814226629536110288
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -541,6 +543,16 @@ PrefabInstance:
       propertyPath: pieceIcon
       value: 
       objectReference: {fileID: 3409177176569370436}
+    - target: {fileID: 5752610005730192534, guid: b4594a22d4d3f6c4d9cf74e6c1c962df,
+        type: 3}
+      propertyPath: dicePiece
+      value: 
+      objectReference: {fileID: 9081775335385657583}
+    - target: {fileID: 5752610005730192534, guid: b4594a22d4d3f6c4d9cf74e6c1c962df,
+        type: 3}
+      propertyPath: highlightDistance
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6490587304034976017, guid: b4594a22d4d3f6c4d9cf74e6c1c962df,
         type: 3}
       propertyPath: m_RootOrder
