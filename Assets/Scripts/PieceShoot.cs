@@ -15,6 +15,7 @@ public class PieceShoot : MonoBehaviour {
             spawnPoint.LookAt(aim.position);
             Instantiate(this.projectilePrefab, this.spawnPoint.position+this.spawnPoint.forward, this.spawnPoint.rotation);
             this.piece.pieceManager.PlaySound(this.piece.shootSound);
+            
             this.piece.resourceAmount--;
             this.piece.movesRemain = 0;
             this.piece.actionsRemain--;

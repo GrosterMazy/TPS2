@@ -330,11 +330,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_MethodName: 
+        m_MethodName: NextTurn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -600,7 +600,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3094174600505689369
 RectTransform:
   m_ObjectHideFlags: 0
@@ -842,8 +842,8 @@ MonoBehaviour:
   pieceMovement: {fileID: 9209127145644173025}
   board: {fileID: 0}
   pieceManager: {fileID: 0}
-  actionButtons: {fileID: 0}
-  pieceSpawn: {fileID: 0}
+  actionButtons: {fileID: 3187227077126233584}
+  pieceSpawn: {fileID: 8410637287254126782}
   highlighted: {fileID: 0}
   selected: {fileID: 0}
 --- !u!114 &9209127145644173025
@@ -859,10 +859,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   board: {fileID: 0}
-  moveHighlightColor: {fileID: 0}
+  moveHighlightColor: {fileID: 2100000, guid: 12c124257f7350d48a87ef1de93cb6c7, type: 2}
   mouseSelection: {fileID: 171817960021090678}
   pieceManager: {fileID: 0}
-  actionButtons: {fileID: 0}
+  actionButtons: {fileID: 3187227077126233584}
 --- !u!114 &8410637287254126782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -880,10 +880,16 @@ MonoBehaviour:
   pieceManager: {fileID: 0}
   mouseSelection: {fileID: 171817960021090678}
   actionButtons: {fileID: 3187227077126233584}
+  wallPrefab: {fileID: 2561190148435619331, guid: cc5e887a7b30ccf4ab21bdbe50418fa7,
+    type: 3}
   minerPiecePrefab: {fileID: 6143423919036672960, guid: 31f09285d94db7b418296f8bcdc856e2,
     type: 3}
-  defenderPiecePrefab: {fileID: 0}
-  sniperPiecePrefab: {fileID: 0}
+  defenderPiecePrefab: {fileID: 1482943211245869169, guid: c1a12c2271404c240b634e7ed9b1713a,
+    type: 3}
+  sniperPiecePrefab: {fileID: 1329767198138569179, guid: f3dd4ab163bf5c74ca82b1069f1a4828,
+    type: 3}
+  armorRemoverPrefab: {fileID: 5401054876800776878, guid: 6222ced8b2413194fb9ff1da215e8778,
+    type: 3}
 --- !u!1 &4540520663145684110
 GameObject:
   m_ObjectHideFlags: 0
@@ -1265,8 +1271,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseSelection: {fileID: 171817960021090678}
   shootButton: {fileID: 528776346782859630}
-  mineButton: {fileID: 0}
-  spawnButton: {fileID: 0}
+  mineButton: {fileID: 8914759701124347588}
+  spawnButton: {fileID: 4154243224798845172}
   boardCamera: {fileID: 4458686890482541864}
   pieceMovement: {fileID: 9209127145644173025}
   pieceManager: {fileID: 0}
@@ -1414,9 +1420,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '
-
-'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1681,4 +1685,15 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5427600786775767492}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3187227077126233584}
+        m_MethodName: MineButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

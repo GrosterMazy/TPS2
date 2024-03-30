@@ -73,10 +73,11 @@ public class PieceSpawn : MonoBehaviour {
         GameObject piece;
         switch (parent.power) {
             case 1:
-                piece = Instantiate(this.wallPrefab);
+                piece = Instantiate(this.minerPiecePrefab);
                 break;
             case 2:
-                piece = Instantiate(this.minerPiecePrefab);
+                // TODO: spawn Wall(now i don't added this because king can trap himself in walls)
+                piece = Instantiate(this.minerPiecePrefab); 
                 break;
             case 3:
                 piece = Instantiate(this.defenderPiecePrefab);
@@ -88,7 +89,7 @@ public class PieceSpawn : MonoBehaviour {
                 piece = Instantiate(this.armorRemoverPrefab);
                 break;
             case 6:
-                piece = Instantiate(this.wallPrefab); // TODO: spawn Mover
+                piece = Instantiate(this.minerPiecePrefab); // TODO: spawn Mover
                 break;
             default:
                 piece = null;

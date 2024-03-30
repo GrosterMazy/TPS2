@@ -17,7 +17,7 @@ public class MouseHighlight : MonoBehaviour {
 
     void Update() {
         RaycastHit hit;
-        bool hasHit = Physics.Raycast(this.cameraLink.ScreenPointToRay(Input.mousePosition), out hit);
+        bool hasHit = Physics.Raycast(this.cameraLink.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f)), out hit);
 
         // return color to last frame hightlight
         if (this.highlighted != null) { 

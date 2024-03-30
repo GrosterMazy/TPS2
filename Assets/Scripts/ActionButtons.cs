@@ -29,12 +29,12 @@ public class ActionButtons : MonoBehaviour {
                 if (pieceModel.parent.gameObject.GetComponent<MinerPiece>() != null
                         && this.board.cells[pieceModel.parent.boardX][pieceModel.parent.boardZ]
                             .GetComponent<WithResource>() != null
-                        && pieceModel.parent.resourceAmount < pieceModel.parent.maxResourceAmount) {
+                        && pieceModel.parent.resourceAmount < pieceModel.parent.maxResourceAmount
+                        && pieceModel.parent.actionsRemain > 0) {
                     this.mineButton.SetActive(true);
                 } else this.mineButton.SetActive(false);
 
                 // Spawn button
-                
                 if (pieceModel.parent.gameObject.GetComponent<KingPiece>() != null
                         && pieceModel.parent.actionsRemain > 0
                         && pieceModel.parent.resourceAmount > 0
